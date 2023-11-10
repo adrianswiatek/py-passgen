@@ -11,7 +11,7 @@ def parse_args(default_length=20):
     parser = argparse.ArgumentParser(description="A simple password generator.")
 
     parser.add_argument(
-        "-w", "--start-with", type=str, help="A first character in the password", required=False, default=None)
+        "-w", "--start-with", type=str, help="A first character in the password", required=False)
     parser.add_argument(
         "-l", "--length", type=int, help="Total length of the password", required=False, default=total_length)
     parser.add_argument(
@@ -105,4 +105,4 @@ if __name__ == '__main__':
     args = parse_args()
     password = generate_password(args.start_with, args.length, args.digits, args.uppercase, args.specials)
     pyperclip.copy(password)
-    print("\nYour password:", password)
+    print("\n", password)
