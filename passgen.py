@@ -22,6 +22,8 @@ def parse_args(default_length=20):
         "-u", "--uppercase", type=int, help="Number of uppercase characters", required=False, default=part_length)
     parser.add_argument(
         "-s", "--specials", type=int, help="Number of special characters", required=False, default=part_length)
+    parser.add_argument(
+        "-v", "--values", help="Prints values for all parameters", required=False, action="store_true")
 
     return parser.parse_args()
 
@@ -69,7 +71,7 @@ def applying_uppercase(value, amount):
 
 
 def random_indices(value, amount, result=[]):
-    if amount == 0 or len(value) == 0:
+    if amount == 0 or len(value) == 0 or len(result) == len(value) - 1:
         return result
 
     random_index = random.randint(0, len(value) - 1)
@@ -87,24 +89,37 @@ def shuffled(value):
     return "".join(value)
 
 
-def generate_password(start_with=None, length=20, digits=1, uppercase=1, specials=1):
-    if length <= 0:
+def generate_password(args):
+    if args.length <= 0:
         return ""
 
-    start_with = start_with[0] if start_with else ""
+    start_with = args.start_with[0] if args.start_with else ""
 
-    digits = min(digits, length)
-    specials = min(specials, length)
+    digits = min(args.digits, args.length)
+    specials = min(args.specials, args.length)
 
-    number_of_letters = max(length - digits - specials, 0)
-    letters = applying_uppercase(draw_letters(number_of_letters), uppercase)
+    number_of_letters = max(args.length - digits - specials, 0)
+    letters = applying_uppercase(draw_letters(number_of_letters), args.uppercase)
     result = start_with + shuffled(letters + draw_digits(digits) + draw_specials(specials))
 
-    return result[0:length]
+    return result[0:args.length]
+
+
+def printValues(args):
+    print()
+    print(" Start with:\t", args.start_with)
+    print(" Length:\t", args.length)
+    print(" Digits:\t", args.digits)
+    print(" Uppercase:\t", args.uppercase)
+    print(" Specials:\t", args.specials)
 
 
 if __name__ == '__main__':
     args = parse_args()
-    password = generate_password(args.start_with, args.length, args.digits, args.uppercase, args.specials)
+
+    password = generate_password(args)
     pyperclip.copy(password)
     print("\n", password)
+
+    if args.values:
+        printValues(args)
