@@ -105,13 +105,13 @@ def generate_password(args):
     return result[0:args.length]
 
 
-def printValues(args):
+def printValues(arguments):
     print()
-    print(" Start with:\t", args.start_with)
-    print(" Length:\t", args.length)
-    print(" Digits:\t", args.digits)
-    print(" Uppercase:\t", args.uppercase)
-    print(" Specials:\t", args.specials)
+    print(" Start with:\t", arguments.start_with)
+    print(" Length:\t", arguments.length)
+    print(" Digits:\t", arguments.digits)
+    print(" Uppercase:\t", arguments.uppercase)
+    print(" Specials:\t", arguments.specials)
 
 
 if __name__ == '__main__':
@@ -119,7 +119,10 @@ if __name__ == '__main__':
 
     password = generate_password(args)
     pyperclip.copy(password)
+
     print("\n", password)
+    print("\n ---")
+    print(" The password has been copied to the clipboard :)")
 
     if args.values:
         printValues(args)
