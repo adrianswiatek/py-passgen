@@ -4,6 +4,7 @@ import argparse
 import pyperclip
 import random
 import string
+import qrcode_presenter
 
 
 def parse_args(default_length=20):
@@ -24,6 +25,9 @@ def parse_args(default_length=20):
         "-s", "--specials", type=int, help="Number of special characters", required=False, default=part_length)
     parser.add_argument(
         "-v", "--values", help="Prints values for all parameters", required=False, action="store_true")
+    parser.add_argument(
+        "-q", "--qrcode", help="Generates QR Code and shows it on the screen", required=False, action="store_true"
+    )
 
     return parser.parse_args()
 
@@ -123,6 +127,11 @@ if __name__ == '__main__':
     print("\n", password)
     print("\n ---")
     print(" The password has been copied to the clipboard :)")
+
+    if args.qrcode:
+        print("\n ---")
+        print(" The QR code has been generated and is visible on the screen")
+        qrcode_presenter.show_as_qrcode(password)
 
     if args.values:
         printValues(args)
