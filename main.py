@@ -4,6 +4,7 @@ import argparse
 import pyperclip
 import random
 import string
+
 import qrcode_presenter
 
 
@@ -109,7 +110,7 @@ def generate_password(args):
     return result[0:args.length]
 
 
-def printValues(arguments):
+def print_values(arguments):
     print()
     print(" Start with:\t", arguments.start_with)
     print(" Length:\t", arguments.length)
@@ -134,4 +135,4 @@ if __name__ == '__main__':
         qrcode_presenter.show_as_qrcode(password)
 
     if args.values:
-        printValues(args)
+        print_values(args)

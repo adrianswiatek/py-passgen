@@ -12,6 +12,7 @@ def show_as_qrcode(password: str) -> None:
     def show_qrcode(image) -> None:
         tk = Tk()
         tk.title('Your generated QR Code')
+        tk.wm_attributes('-topmost', 'true')
 
         img = ImageTk.PhotoImage(image)
 
